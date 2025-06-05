@@ -2,35 +2,34 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        // create admin user
+        // Delete existing test users to avoid duplicates
+        User::whereIn('email', ['admin@admin.com', 'user@test.com'])->delete();
+        
+        // Create admin user with strong password
         User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('Admin123!'),
             'role' => 'admin'
         ]);
 
-        // Create test regular user
+        // Create test regular user with strong password
         User::create([
             'name' => 'testuser',
             'email' => 'user@test.com',
-            'password' => Hash::make('user123'),
+            'password' => Hash::make('User123!'),
             'role' => 'user'
         ]);
 
-        echo "Admin user created: admin@admin.com / admin123\n";
-        echo "Test user created: user@test.com / user123\n";
+        echo "✅ Admin user: admin@admin.com / Admin123!\n";
+        echo "✅ Test user: user@test.com / User123!\n";
     }
 }

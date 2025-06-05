@@ -37,7 +37,7 @@
                            placeholder="Enter username"
                            required>
                     @error('name') 
-                        <div class="alert alert-danger">Username is required and must be unique.</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -61,7 +61,7 @@
                            placeholder="{{ $editingUserId ? 'Leave blank to keep current password' : 'Enter password' }}"
                            {{ $editingUserId ? '' : 'required' }}>
                     @error('password') 
-                        <div class="alert alert-danger">Password must be at least 6 characters long.</div>
+                        <div class="alert alert-danger">Please choose a stronger password.</div>
                     @enderror
                     @if($editingUserId)
                         <small>Leave blank to keep current password</small>

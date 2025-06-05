@@ -42,8 +42,8 @@
 
             <div class="mt-4">
                 <p><strong>Test Accounts:</strong></p>
-                <p>Admin: <code>admin</code> / <code>admin123</code></p>
-                <p>User: <code>testuser</code> / <code>user123</code></p>
+                <p>Admin: <code>admin</code> / <code>Admin123!</code></p>
+                <p>User: <code>testuser</code> / <code>User123!</code></p>
             </div>
         </div>
     </div>

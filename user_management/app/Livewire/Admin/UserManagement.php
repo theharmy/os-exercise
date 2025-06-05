@@ -39,7 +39,7 @@ class UserManagement extends Component
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
-        'password' => 'required|min:6',
+        'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/',
         'role' => 'required|in:user,admin',
     ];
 
@@ -50,7 +50,8 @@ class UserManagement extends Component
         'email.email' => 'Please enter a valid email address.',
         'email.unique' => 'This email is already registered.',
         'password.required' => 'Password is required.',
-        'password.min' => 'Password must be at least 6 characters.',
+        'password.min' => 'Password must be at least 8 characters.',
+        'password.regex' => 'Password must contain: uppercase letter, lowercase letter, number, and special character (@$!%*?&).',
         'role.required' => 'Role is required.',
     ];
 
@@ -62,6 +63,7 @@ class UserManagement extends Component
 
     public function editUser($userId)
     {
+        $this->clearMessages();
         $user = User::findOrFail($userId);
         
         $this->editingUserId = $userId;
@@ -79,7 +81,7 @@ class UserManagement extends Component
         
         if ($this->editingUserId) {
             // When editing, make password optional and add unique constraints
-            $rules['password'] = 'nullable|min:6';
+            $rules['password'] = 'nullable|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/';
             $rules['name'] = 'required|string|max:255|unique:users,name,' . $this->editingUserId;
             $rules['email'] = 'required|email|max:255|unique:users,email,' . $this->editingUserId;
         } else {
@@ -188,6 +190,7 @@ class UserManagement extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+        $this->clearMessages();
     }
 
     public function render()
@@ -197,7 +200,7 @@ class UserManagement extends Component
                 $query->where('name', 'like', '%' . $this->search . '%')
                       ->orWhere('email', 'like', '%' . $this->search . '%');
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'asc')  // Chronological order by ID
             ->paginate(10);
 
         return view('livewire.admin.user-management', [
