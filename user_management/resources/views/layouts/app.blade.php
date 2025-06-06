@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'User Management System' }}</title>
     
-    <!-- Basic CSS for now -->
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -35,13 +34,14 @@
     
     @livewireStyles
 </head>
-<body>
-    @auth
+<body> 
+    // only for logged in users 
+    @auth   
     <nav class="nav">
         <div class="container">
             <a href="{{ route('dashboard') }}">Dashboard</a>
             
-            @if(auth()->user()->isAdmin())
+            @if(auth()->user()->isAdmin()) // only for admins 
                 <a href="{{ route('admin.users') }}">Manage Users</a>
             @endif
             
