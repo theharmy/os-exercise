@@ -49,7 +49,7 @@
                            placeholder="Enter email address"
                            required>
                     @error('email') 
-                        <div class="alert alert-danger">Please enter a valid, unique email address.</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -61,7 +61,7 @@
                            placeholder="{{ $editingUserId ? 'Leave blank to keep current password' : 'Enter password' }}"
                            {{ $editingUserId ? '' : 'required' }}>
                     @error('password') 
-                        <div class="alert alert-danger">Please choose a stronger password.</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     @if($editingUserId)
                         <small>Leave blank to keep current password</small>
@@ -75,7 +75,7 @@
                         <option value="admin">Admin</option>
                     </select>
                     @error('role') 
-                        <div class="alert alert-danger">Please select a valid role.</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 

@@ -35,13 +35,13 @@
     @livewireStyles
 </head>
 <body> 
-    // only for logged in users 
+    <!-- only for logged in users -->
     @auth   
     <nav class="nav">
         <div class="container">
             <a href="{{ route('dashboard') }}">Dashboard</a>
             
-            @if(auth()->user()->isAdmin()) // only for admins 
+            @if(auth()->user()->isAdmin()) <!-- only for admins -->
                 <a href="{{ route('admin.users') }}">Manage Users</a>
             @endif
             
